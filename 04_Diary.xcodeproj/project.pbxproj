@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81099B1E276AD74300C4A022 /* HeartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81099B1D276AD74300C4A022 /* HeartCell.swift */; };
+		81099B22276B0E5500C4A022 /* FavorateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81099B21276B0E5500C4A022 /* FavorateViewController.swift */; };
 		81FE4DD127697569004148B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4DD027697569004148B0 /* AppDelegate.swift */; };
 		81FE4DD327697569004148B0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4DD227697569004148B0 /* SceneDelegate.swift */; };
 		81FE4DD527697569004148B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4DD427697569004148B0 /* ViewController.swift */; };
@@ -14,14 +16,14 @@
 		81FE4DDA2769756C004148B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81FE4DD92769756C004148B0 /* Assets.xcassets */; };
 		81FE4DDD2769756C004148B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81FE4DDB2769756C004148B0 /* LaunchScreen.storyboard */; };
 		81FE4DE527697BF9004148B0 /* DiaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4DE427697BF9004148B0 /* DiaryCell.swift */; };
-		81FE4DE727697C81004148B0 /* StarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4DE627697C81004148B0 /* StarViewController.swift */; };
-		81FE4DE927697E51004148B0 /* StarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4DE827697E51004148B0 /* StarCell.swift */; };
 		81FE4DEB27698105004148B0 /* WriteDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4DEA27698105004148B0 /* WriteDiaryViewController.swift */; };
 		81FE4DED2769823A004148B0 /* DiaryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4DEC2769823A004148B0 /* DiaryDetailViewController.swift */; };
 		81FE4DEF2769A1E5004148B0 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4DEE2769A1E5004148B0 /* Diary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81099B1D276AD74300C4A022 /* HeartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartCell.swift; sourceTree = "<group>"; };
+		81099B21276B0E5500C4A022 /* FavorateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavorateViewController.swift; sourceTree = "<group>"; };
 		81FE4DCD27697569004148B0 /* 04_Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 04_Diary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FE4DD027697569004148B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81FE4DD227697569004148B0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,8 +33,6 @@
 		81FE4DDC2769756C004148B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81FE4DDE2769756C004148B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81FE4DE427697BF9004148B0 /* DiaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCell.swift; sourceTree = "<group>"; };
-		81FE4DE627697C81004148B0 /* StarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarViewController.swift; sourceTree = "<group>"; };
-		81FE4DE827697E51004148B0 /* StarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarCell.swift; sourceTree = "<group>"; };
 		81FE4DEA27698105004148B0 /* WriteDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteDiaryViewController.swift; sourceTree = "<group>"; };
 		81FE4DEC2769823A004148B0 /* DiaryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewController.swift; sourceTree = "<group>"; };
 		81FE4DEE2769A1E5004148B0 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
@@ -76,11 +76,11 @@
 				81FE4DDB2769756C004148B0 /* LaunchScreen.storyboard */,
 				81FE4DDE2769756C004148B0 /* Info.plist */,
 				81FE4DE427697BF9004148B0 /* DiaryCell.swift */,
-				81FE4DE627697C81004148B0 /* StarViewController.swift */,
-				81FE4DE827697E51004148B0 /* StarCell.swift */,
 				81FE4DEA27698105004148B0 /* WriteDiaryViewController.swift */,
 				81FE4DEC2769823A004148B0 /* DiaryDetailViewController.swift */,
 				81FE4DEE2769A1E5004148B0 /* Diary.swift */,
+				81099B1D276AD74300C4A022 /* HeartCell.swift */,
+				81099B21276B0E5500C4A022 /* FavorateViewController.swift */,
 			);
 			path = 04_Diary;
 			sourceTree = "<group>";
@@ -158,13 +158,13 @@
 			files = (
 				81FE4DD527697569004148B0 /* ViewController.swift in Sources */,
 				81FE4DEB27698105004148B0 /* WriteDiaryViewController.swift in Sources */,
-				81FE4DE927697E51004148B0 /* StarCell.swift in Sources */,
 				81FE4DD127697569004148B0 /* AppDelegate.swift in Sources */,
+				81099B22276B0E5500C4A022 /* FavorateViewController.swift in Sources */,
 				81FE4DD327697569004148B0 /* SceneDelegate.swift in Sources */,
+				81099B1E276AD74300C4A022 /* HeartCell.swift in Sources */,
 				81FE4DEF2769A1E5004148B0 /* Diary.swift in Sources */,
 				81FE4DED2769823A004148B0 /* DiaryDetailViewController.swift in Sources */,
 				81FE4DE527697BF9004148B0 /* DiaryCell.swift in Sources */,
-				81FE4DE727697C81004148B0 /* StarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

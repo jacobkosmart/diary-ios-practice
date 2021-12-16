@@ -93,18 +93,33 @@ class WriteDiaryViewController: UIViewController {
 		guard let title = self.titleTextField.text else { return }
 		guard let contents = self.contentsTextView.text else { return }
 		guard let date = self.diaryDate else { return }
-		let diary = Diary(title: title, contents: contents, date: date, isStar: false)
+
 		
 		// .edit 일 경우에만 NotificationCenter post event 발생
 		switch self.diaryEditorMode {
 		case .new:
+			let diary = Diary(
+				uuidString: UUID().uuidString,
+				title: title,
+				contents: contents,
+				date: date,
+				isHeart: false)
 			self.delegate?.didSelectReigster(diary: diary)
 			
-		case let .edit(indexPath, _):
+		case let .edit(indexPath, diary):
+			let diary = Diary(
+				uuidString: diary.uuidString,
+				title: title,
+				contents: contents,
+				date: date,
+				isHeart: diary.isHeart)
 			NotificationCenter.default.post(
 				name: NSNotification.Name("editDiary"),
 				object: diary,
-				userInfo: ["indexPath.row" : indexPath.row])
+				userInfo: nil
+			)
+				// 더이상 userInfo 에 indexPath.row 값을 넘겨주지 않아도 됨 uuid 사용
+				// userInfo: ["indexPath.row" : indexPath.row])
 		}
 		
 		self.navigationController?.popViewController(animated: true)

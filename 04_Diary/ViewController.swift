@@ -21,24 +21,58 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		self.configureCollectionView()
 		self.loadDiaryList()
-		// NotificationCenter observer 생성
+		// NotificationCenter editDiaryNotification observer
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(editDiaryNotification(_:)),
 			name: NSNotification.Name("editDiary"),
-			object: nil)
+			object: nil
+		)
+		// NotificationCenter isHeart observer
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(heartDiaryNotification(_:)),
+			name: NSNotification.Name("heartDiary"),
+			object: nil
+		)
+		// NotificationCenter deleteDiary observer
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(deleteDiaryNotification(_:)),
+			name: NSNotification.Name("deleteDiary"),
+			object: nil
+		)
 	}
 	
-	// Notification observer selector
+	// Notification editDiary observer selector
 	@objc func editDiaryNotification(_ notification: Notification) {
 		guard let diary = notification.object as? Diary else { return }
-		guard let row = notification.userInfo?["indexPath.row"] as? Int else { return }
-		self.diaryList[row] = diary
+		// 배열을 iteration 해서 전달 받은 uuid 와 같은 값이 배열의 요소에 있는지 확인하기, 있으면 해당 요소의 index를 return 받기
+		guard let index = self.diaryList.firstIndex(where: { $0.uuidString == diary.uuidString }) else { return }
+		self.diaryList[index] = diary
 		self.diaryList = self.diaryList.sorted(by: {
 			$0.date.compare($1.date) == .orderedDescending
 		})
 		self.collectionView.reloadData()
 	}
+	
+	// Notification isHeart observer selector
+	@objc func heartDiaryNotification(_ notification: Notification) {
+		guard let heartDiary = notification.object as? [String: Any] else { return }
+		guard let isHeart = heartDiary["isHeart"] as? Bool else { return }
+		guard let uuidString = heartDiary["uuidString"] as? String else { return }
+		guard let index = self.diaryList.firstIndex(where: { $0.uuidString == uuidString }) else { return }
+		self.diaryList[index].isHeart = isHeart
+	}
+	
+	// Notification deleteDiary observer selector
+	@objc func deleteDiaryNotification(_ notification: Notification) {
+		guard let uuidString = notification.object as? String else { return }
+		guard let index = self.diaryList.firstIndex(where: { $0.uuidString == uuidString }) else { return }
+		self.diaryList.remove(at: index)
+		self.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+	}
+	
 	
 	// 저장된 diaryList 를 FlowLayout() 화면에 구현
 	private func configureCollectionView() {
@@ -59,10 +93,11 @@ class ViewController: UIViewController {
 	private func saveDiaryList() {
 		let date = self.diaryList.map {
 			[
+				"uuidString": $0.uuidString,
 				"title": $0.title,
 				"contents": $0.contents,
 				"date": $0.date,
-				"isStar": $0.isStar
+				"isHeart": $0.isHeart,
 			]
 		}
 		let userDefaults = UserDefaults.standard
@@ -75,11 +110,12 @@ class ViewController: UIViewController {
 		// userDefaults 에서 저장된 데이터 불러올때는 any type 으로 return 되기 때문에 type casting 을 dictonary 형태로 형변환 해야함
 		guard let data =  userDefaluts.object(forKey: "diaryList") as? [[String: Any]] else { return }
 		self.diaryList = data.compactMap{
+			guard let uuidString = $0["uuidString"] as? String else { return nil}
 			guard let title = $0["title"] as? String else { return nil}
 			guard let contents = $0["contents"] as? String else { return nil}
 			guard let date = $0["date"] as? Date else { return nil }
-			guard let isStar = $0["isStar"] as? Bool else { return nil }
-			return Diary(title: title, contents: contents, date: date, isStar: isStar)
+			guard let isHeart = $0["isHeart"] as? Bool else { return nil }
+			return Diary(uuidString: uuidString,title: title, contents: contents, date: date, isHeart: isHeart)
 		}
 		
 		// loadDiaryList 가 최신 순으로 정렬되게 sort
@@ -131,7 +167,8 @@ extension ViewController: UICollectionViewDelegate {
 		let diary = self.diaryList[indexPath.row]
 		viewController.diary = diary
 		viewController.indexPath = indexPath
-		viewController.delegate = self
+		// Notification Center 로 대체
+		// viewController.delegate = self
 		self.navigationController?.pushViewController(viewController, animated: true)
 	}
 }
@@ -149,10 +186,15 @@ extension ViewController: WriteDiaryViewDelegate {
 	}
 }
 
-// 선택된 indexPath 에 따라서 diaryList 가 삭제 되는 extention
-extension ViewController: DiaryDetailViewDelegate {
-	func didSelecteDelete(indexPath: IndexPath) {
-		self.diaryList.remove(at: indexPath.row)
-		self.collectionView.deleteItems(at: [indexPath])
-	}
-}
+// 선택된 indexPath 에 따라서 diaryList 가 삭제 되는 extention (NotificationCenter 로 대체됨)
+// extension ViewController: DiaryDetailViewDelegate {
+// 	func didSelecteDelete(indexPath: IndexPath) {
+// 		self.diaryList.remove(at: indexPath.row)
+// 		self.collectionView.deleteItems(at: [indexPath])
+// 	}
+//
+	// heart btn 이 눌려진 상태로 전달값을 받아서 viewController 화면에 표시되게 함 (NotificationCenter 로 대체됨)
+	// func didSelectHeart(indexPath: IndexPath, isHeart: Bool) {
+	// 	self.diaryList[indexPath.row].isHeart = isHeart
+	// }
+// }
